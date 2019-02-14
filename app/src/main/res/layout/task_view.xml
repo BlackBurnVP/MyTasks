@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="0dp"
+        android:background="#d3d3d3" android:padding="7dp">
+
+    <LinearLayout
+            android:background="@drawable/background_item"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_weight="0">
+        <TextView
+                android:text="Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/txtTitle" android:layout_weight="0"
+                android:textSize="20sp" android:textColor="@android:color/holo_blue_bright"/>
+        <TextView
+                android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/txtContent" android:layout_weight="0"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_weight="0"
+                android:layout_gravity="right">
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/baseline_edit_black_18dp"
+                    android:id="@+id/imgEdit"
+                    android:layout_weight="1"
+                    android:layout_gravity="end"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/baseline_delete_black_18dp"
+                    android:id="@+id/imgDelete"
+                    android:layout_weight="1"
+                    android:layout_gravity="right"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
