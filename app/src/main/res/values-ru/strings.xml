@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyTasks</string>
+    <string name="add_note">Добавить задание</string>
+    <string name="title">Название</string>
+    <string name="description">Описание</string>
+</resources>

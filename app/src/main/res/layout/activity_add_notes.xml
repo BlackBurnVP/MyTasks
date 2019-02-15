@@ -16,7 +16,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.077" android:hint="Title"/>
+            app:layout_constraintVertical_bias="0.077" android:hint="@string/title"/>
     <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -27,9 +27,9 @@
             android:layout_marginBottom="308dp"
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="72dp"
             app:layout_constraintTop_toBottomOf="@+id/editTitle" app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintVertical_bias="0.0" android:hint="Description"/>
+            app:layout_constraintVertical_bias="0.0" android:hint="@string/description"/>
     <Button
-            android:text="Add Note"
+            android:text="@string/add_note"
             android:background="@drawable/background_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/btnAdd"

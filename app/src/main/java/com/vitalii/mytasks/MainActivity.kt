@@ -102,6 +102,13 @@ class MainActivity : AppCompatActivity() {
                 dbManager.delete("ID=?",selectionArgs)
                 loadFromDB("%")
             }
+            myView.imgEdit.setOnClickListener{
+                val intent = Intent(this@MainActivity,AddNotes::class.java)
+                intent.putExtra("ID",listNotes[position].noteID)
+                intent.putExtra("Title",listNotes[position].noteName)
+                intent.putExtra("Description",listNotes[position].noteDes)
+                startActivity(intent)
+            }
             return myView
         }
 

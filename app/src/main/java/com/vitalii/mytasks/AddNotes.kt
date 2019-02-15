@@ -10,9 +10,16 @@ import kotlinx.android.synthetic.main.activity_add_notes.*
 class AddNotes : AppCompatActivity() {
 
     private var dbTable = "Notes"
+    private var id = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_notes)
+
+        id = intent.getIntExtra("ID",0)
+        if(id!=0){
+            editTitle.setText(intent.getStringExtra("Title"))
+            editDesc.setText(intent.getStringExtra("Description"))
+        }
 
         btnAdd.setOnClickListener(addNote)
     }
@@ -24,15 +31,23 @@ class AddNotes : AppCompatActivity() {
         val values = ContentValues()
         values.put("Title", editTitle.text.toString())
         values.put("Description", editDesc.text.toString())
-        val ID = dbManager.insert(values)
-        if (ID>0){
-            Toast.makeText(this,"Note is added",Toast.LENGTH_SHORT).show()
+        if(id==0){
+            val ID = dbManager.insert(values)
+            if (ID>0){
+                Toast.makeText(this,"Note is added",Toast.LENGTH_SHORT).show()
+                finish()
+            }else{
+                Toast.makeText(this,"Cannot add note",Toast.LENGTH_SHORT).show()
+            }
         }else{
-            Toast.makeText(this,"Cannot add note",Toast.LENGTH_SHORT).show()
+            val selectionArgs = arrayOf(id.toString())
+            val ID = dbManager.update(values,"ID=?",selectionArgs)
+            if (ID>0){
+                Toast.makeText(this,"Note is added",Toast.LENGTH_SHORT).show()
+                finish()
+            }else{
+                Toast.makeText(this,"Cannot add note",Toast.LENGTH_SHORT).show()
+            }
         }
-//        val intent = Intent(this,MainActivity::class.java)
-//        intent.putExtra("title", txtTitle.text)
-//        intent.putExtra("description",txtContent.text)
-//        startActivity(intent)
     }
 }

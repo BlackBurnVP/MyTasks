@@ -46,6 +46,10 @@ class DBManager(context: Context) {
         return sqlDB!!.delete(dbTable,selection,selectionArgs)
     }
 
+    fun update(values: ContentValues,selection: String,selectionArgs: Array<String>):Int{
+        return sqlDB!!.update(dbTable,values,selection,selectionArgs)
+    }
+
     inner class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, dbName, null, dbVersion) {
         var context:Context? = context
         override fun onCreate(db: SQLiteDatabase?) {
