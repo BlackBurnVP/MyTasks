@@ -18,19 +18,18 @@ class AddNotes : AppCompatActivity() {
     }
 
     val addNote = View.OnClickListener{
-        val dbManager = DBManager()
-        val dbHelper = dbManager.DatabaseHelper(this)
-        val sqlDB = dbHelper.writableDatabase
+        val dbManager = DBManager(this)
+//        val dbHelper = dbManager.DatabaseHelper(this)
+//        val sqlDB = dbHelper.writableDatabase
         val values = ContentValues()
         values.put("Title", editTitle.text.toString())
         values.put("Description", editDesc.text.toString())
-        val ID = dbManager.insert(values,sqlDB)
+        val ID = dbManager.insert(values)
         if (ID>0){
             Toast.makeText(this,"Note is added",Toast.LENGTH_SHORT).show()
         }else{
             Toast.makeText(this,"Cannot add note",Toast.LENGTH_SHORT).show()
         }
-        //TODO : Video on 21:36
 //        val intent = Intent(this,MainActivity::class.java)
 //        intent.putExtra("title", txtTitle.text)
 //        intent.putExtra("description",txtContent.text)

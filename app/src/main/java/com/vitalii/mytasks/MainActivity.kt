@@ -23,19 +23,34 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        addNotes()
+        //addNotes()
 
-        adapter = notesAdapter(listNotes)
-        listTasks.adapter = adapter
-
+        loadFromDB("%") //load ALL from Database
     }
 
-    private fun addNotes(){
-        for (i in 1..10){
-            listNotes.add(Notes(i,"Note no. $i","Description of note no $i"))
+    /**
+     * Load data from Database
+     * @param title what we want to load from database
+     */
+    private fun loadFromDB(title:String){
+        val projections = arrayOf("ID","Title","Description")
+        val dbManager = DBManager(this)
+        val selectionArgs = arrayOf(title)
+        val myCursor = dbManager.query(projections,"Title like ?",selectionArgs,"Title")
+        listNotes.clear()
+        if (myCursor.moveToFirst()){
+            do {
+                val ID = myCursor.getInt(myCursor.getColumnIndex("ID"))
+                val Title = myCursor.getString(myCursor.getColumnIndex("Title"))
+                val Desc = myCursor.getString(myCursor.getColumnIndex("Description"))
+
+                listNotes.add(Notes(ID,Title,Desc))
+
+            }while (myCursor.moveToNext())
         }
+        adapter = NotesAdapter(listNotes)
+        listTasks.adapter = adapter
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu,menu)
@@ -45,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
-                //TODO: search database
+                loadFromDB("%$query$%")
                 return false
             }
 
@@ -67,7 +82,12 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    inner class notesAdapter:BaseAdapter{
+    override fun onResume() {
+        loadFromDB("%")
+        super.onResume()
+    }
+
+    inner class NotesAdapter:BaseAdapter{
 
         var listNotes = ArrayList<Notes>()
         constructor(listNotes:ArrayList<Notes>):super(){
