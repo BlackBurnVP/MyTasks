@@ -39,8 +39,11 @@ class DBManager(context: Context) {
     fun query(projection: Array<String>, selection:String,selectionArgs:Array<String>,sortOrder:String):Cursor{
         val qb = SQLiteQueryBuilder()
         qb.tables = dbTable
-        val myCursor = qb.query(sqlDB,projection,selection,selectionArgs,null,null,sortOrder)
-        return myCursor
+        return qb.query(sqlDB,projection,selection,selectionArgs,null,null,sortOrder)
+    }
+
+    fun delete(selection: String,selectionArgs: Array<String>):Int{
+        return sqlDB!!.delete(dbTable,selection,selectionArgs)
     }
 
     inner class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, dbName, null, dbVersion) {

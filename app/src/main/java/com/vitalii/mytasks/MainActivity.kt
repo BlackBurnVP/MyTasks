@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.SearchView
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.task_view.*
 import kotlinx.android.synthetic.main.task_view.view.*
 
 class MainActivity : AppCompatActivity() {
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
             }while (myCursor.moveToNext())
         }
-        adapter = NotesAdapter(listNotes)
+        adapter = NotesAdapter(this,listNotes)
         listTasks.adapter = adapter
     }
 
@@ -87,17 +88,20 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
     }
 
-    inner class NotesAdapter:BaseAdapter{
+    inner class NotesAdapter(context: Context, var listNotes: ArrayList<Notes>) : BaseAdapter() {
 
-        var listNotes = ArrayList<Notes>()
-        constructor(listNotes:ArrayList<Notes>):super(){
-            this.listNotes = listNotes
-        }
+        private var context:Context? = context
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             val myView = layoutInflater.inflate(R.layout.task_view,null)
             myView.txtTitle.text = listNotes[position].noteName
             myView.txtContent.text = listNotes[position].noteDes
+            myView.imgDelete.setOnClickListener{
+                val dbManager = DBManager(context!!)
+                val selectionArgs = arrayOf(listNotes[position].noteID.toString())
+                dbManager.delete("ID=?",selectionArgs)
+                loadFromDB("%")
+            }
             return myView
         }
 
