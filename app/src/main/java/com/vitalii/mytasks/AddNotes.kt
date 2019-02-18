@@ -26,8 +26,6 @@ class AddNotes : AppCompatActivity() {
 
     val addNote = View.OnClickListener{
         val dbManager = DBManager(this)
-//        val dbHelper = dbManager.DatabaseHelper(this)
-//        val sqlDB = dbHelper.writableDatabase
         val values = ContentValues()
         values.put("Title", editTitle.text.toString())
         values.put("Description", editDesc.text.toString())
